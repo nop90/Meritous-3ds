@@ -60,7 +60,8 @@ void InitHelp()
 	fp = fopen("romfs:/d/helpfile.txt", "r");
 	while (!feof(fp)) {
 		fgets(linebuf, 79, fp);
-		if (linebuf[strlen(linebuf)-1] == '\n')
+		while (linebuf[strlen(linebuf)-1] == '\n' ||
+		       linebuf[strlen(linebuf)-1] == '\r')
 			linebuf[strlen(linebuf)-1] = 0;
 
 		if (linebuf[0] == '\'') {
