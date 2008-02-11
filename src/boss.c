@@ -699,7 +699,7 @@ void DrawBoss()
 			} else {
 				if (dist(tail_x[0], tail_y[0], boss_x, boss_y) >= 24) {
 					if (boss_tail_len < 10) boss_tail_len++;
-					for (i = 9; i >= 0; i--) {
+					for (i = 8; i >= 0; i--) {
 						tail_x[i+1] = tail_x[i];
 						tail_y[i+1] = tail_y[i];
 					}
