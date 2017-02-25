@@ -46,18 +46,14 @@ CFLAGS	:=	-g -Wall -O2 $(ARCH)
 
 CFLAGS	+=	$(INCLUDE) -DARM11 -D_3DS 
 
-#- -D_NOSTYLUS
-
-CXXFLAGS	:= $(CFLAGS) 
-
-#-fno-rtti -fno-exceptions -std=gnu++11 -findirect-inlining
+CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++11 -findirect-inlining
 
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=3dsx.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 
-LIBS	:= -lsdl_mixer -lmad -lsdl_image -lsdl -lpng -ljpeg -lz -lcitro3d -lctru -lm
+LIBS	:= -lsdl_mixer -lmikmod -lmad -lsdl_image -lsdl -lpng -ljpeg -lz -lcitro3d -lctru -lm
 
-#- -lmikmod -lvorbisidec 
+#-  -lvorbisidec 
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing

@@ -32,19 +32,19 @@
 #include "mapgen.h"
 #include "boss.h"
 
-char *tracks[13] = {"romfs:/m/ICEFRONT.S3M",
+char *tracks[13] = {"romfs:/m/icefront.xm",
 					"romfs:/m/cavern.xm",
 					"romfs:/m/cave.xm",
-					"romfs:/m/cave06.s3m",
-					"romfs:/m/Wood.s3m",
+					"romfs:/m/cave06.xm",
+					"romfs:/m/wood.xm",
 					"romfs:/m/iller_knarkloader_final.xm",
 					"romfs:/m/fear2.mod",
 					"romfs:/m/Cv_boss.mod",
 					"romfs:/m/Fr_boss.mod",
-					"romfs:/m/CT_BOSS.MOD",
+					"romfs:/m/Ct_boss.mod",
 					"romfs:/m/rpg_bat1.xm",
 					"romfs:/m/amblight.xm",
-					"romfs:/m/FINALBAT.s3m"};
+					"romfs:/m/finalbat.xm"};
 
 Mix_Music *bgm_music = NULL;
 int bgm_track = -1;
@@ -125,7 +125,9 @@ void TitleScreenMusic()
 
     if(bgm_track != new_track)
     {
+		printf("Loading music. Please wait.");
         bgm_music = Mix_LoadMUS(tracks[new_track]);
+		printf("\e[1;1H\e[2J");
         Mix_HaltChannel(-1);
     }
 	Mix_PlayMusic(bgm_music, -1);
@@ -144,7 +146,7 @@ void freeAudio()
 void BackgroundMusic()
 {
 	int new_track = -1;
-	//Player_SetVolume(128);
+	Player_SetVolume(128);
 
 	if (rooms[player_room].s_dist <= 15) {
 			new_track = 0;
@@ -192,7 +194,7 @@ void BackgroundMusic()
 			} else {
 				new_track = 7 + current_boss;
 			}
-			//Mix_VolumeMusic(128);
+			Mix_VolumeMusic(128);
 		} else {
 			new_track = -1;
 		}
@@ -201,21 +203,6 @@ void BackgroundMusic()
 	if ( (player_room == 0) && (current_boss == 3) && (boss_fight_mode >= 3) ) {
 		new_track = 11;
 	}
-/*
-	if(int_muzak == 1)
-	{
-	    if(bgm_music != NULL)
-	    {
-            Mix_HaltMusic();
-            Mix_FreeMusic(bgm_music);
-            bgm_music = NULL;
-        }
-
-        bgm_music = Mix_LoadMUS(tracks[0]);
-        Mix_PlayMusic(bgm_music, -1);
-        bgm_track = new_track;
-        int_muzak = 0;
-    }*/
 
 	if (new_track == bgm_track) return;
 
@@ -226,7 +213,9 @@ void BackgroundMusic()
 	}
 
 	if (new_track != -1) {
+		printf("Loading music. Please wait.");
 		bgm_music = Mix_LoadMUS(tracks[new_track]);
+		printf("\e[1;1H\e[2J");
 		Mix_PlayMusic(bgm_music, -1);
 	}
 	bgm_track = new_track;

@@ -165,6 +165,7 @@ struct diamond *gem_stack = NULL;
 struct diamond *room_gems[3000] = {NULL};
 
 struct enemyloc *enemy_loc_stack[20][20] = {{NULL}};
+static struct GRD_Box *g[50][50] = {{NULL}};
 
 struct enemy *CreateEnemy(int enemy_x, int enemy_y, int enemy_room);
 struct enemy *CreateEnemyEx(int enemy_x, int enemy_y, int enemy_room, int enemy_type);
@@ -210,10 +211,27 @@ void DestroyThings()
 		room_gems[i] = NULL;
 	}
 	
+	//nop90
+	for (int iy = 0; iy < 50; iy++) {
+		for (int ix = 0; ix < 50; ix++) {
+			if(g[ix][iy]) free(g[ix][iy]);
+			g[ix][iy] = NULL;
+		}
+	}
+
+	for (int iy = 0; iy < 20; iy++) {
+		for (int ix = 0; ix < 20; ix++) {
+			if(enemy_loc_stack[ix][iy]) free(enemy_loc_stack[ix][iy]);
+			enemy_loc_stack[ix][iy] = NULL;
+		}
+	}
+
 	if(searched) free(searched);
 	if(searchdist) free(searchdist);
 	if(room_active) free(room_active);
-printf("Dellocated rooms state list\n"); //nop90
+	searched=NULL;
+	searchdist=NULL;
+	room_active=NULL;
 }
 
 struct GRD_Box {
@@ -251,7 +269,6 @@ int GetRoomDist(int room1, int room2)
 	int gx, gy, dx, dy;
 	int temp;
 	int ix, iy;
-	static struct GRD_Box *g[50][50] = {{NULL}};
 
 	fc_open++;
 
@@ -885,7 +902,6 @@ void InitEnemies()
 	if(!searched) searched = (int*) malloc(3000*sizeof(int));
 	if(!searchdist) searchdist = (int*) malloc(3000*sizeof(int));
 	if(!room_active) room_active = (int*) malloc(3000*sizeof(int));
-printf("Allocated rooms state list\n"); //nop90
 
 	max_activate_dist = 0;
 

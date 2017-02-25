@@ -263,7 +263,6 @@ void VideoUpdate()
 	static int bmp = 0;
 	char bmp_name[256];
 
-	  //	SDL_UpdateRect(screen, 0, 0, 0, 0);
 	SDL_Flip(screen);
 	if (WriteBitmaps) {
 		if ((bmp >= WB_StartRange)&&(bmp < WB_EndRange)) {
@@ -435,61 +434,9 @@ int main(int argc, char **argv)
 	rooms = (Room*) malloc(3000*sizeof(Room));
 
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK);
+//	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK);
 
 	FILE *wm_mask_file;
-/*
-	if (argc > 1) {
-		for (i = 1; i < argc; i++) {
-			if (!strcasecmp(argv[i], "fullscreen")) {
-				fullscreen = 1;
-			}
-			if (!strcasecmp(argv[i], "record")) {
-				RECORDING = 1;
-				strcpy(record_filename, argv[i+1]);
-			}
-			if (!strcasecmp(argv[i], "play")) {
-				PLAYBACK = 1;
-				strcpy(record_filename, argv[i+1]);
-			}
-			if (!strcasecmp(argv[i], "framedelay")) {
-				frame_len = atoi(argv[i+1]);
-			}
-			if (!strcasecmp(argv[i], "bmpwrite")) {
-				WriteBitmaps = 1;
-			}
-			if (!strcasecmp(argv[i], "bmpstart")) {
-				WB_StartRange = atoi(argv[i+1]);
-			}
-			if (!strcasecmp(argv[i], "bmpend")) {
-				WB_EndRange = atoi(argv[i+1]);
-			}
-		}
-	}
-
-	if ((RECORDING) && (PLAYBACK)) {
-		exit(1);
-	}
-
-	if (RECORDING) {
-		record_file = fopen(record_filename, "wb");
-		stime = time(NULL);
-
-		fputc(stime & 0x000000FF, record_file);
-		fputc((stime & 0x0000FF00) >> 8, record_file);
-		fputc((stime & 0x00FF0000) >> 16, record_file);
-		fputc((stime & 0xFF000000) >> 24, record_file);
-
-		srand(stime);
-	}
-	if (PLAYBACK) {
-		record_file = fopen(record_filename, "rb");
-		stime = fgetc(record_file);
-		stime |= fgetc(record_file) << 8;
-		stime |= fgetc(record_file) << 16;
-		stime |= fgetc(record_file) << 24;
-
-		srand(stime);
-	}*/
 
 	fullscreen = 1;
 
@@ -569,8 +516,6 @@ int main(int argc, char **argv)
 		maxoptions = 2 + can_continue;
 
 		while (on_title) {
-            Mix_VolumeMusic(vol);
-            Mix_Volume(-1, vol);
 
 			SetTitlePalette2(ticker_tick);
 
@@ -588,7 +533,6 @@ int main(int argc, char **argv)
 			SDL_BlitSurface(title_pr, NULL, screen, NULL);
 
 			draw_text(17, 156/2, MERITOUS_VERSION, 112 + sin((float)ticker_tick / 15)*30);
-//			draw_text(17, 156/2, MERITOUS_VERSION, 112 + fastsin((float)ticker_tick / 15)*30);
 			if (can_continue) draw_text((SCREEN_W - 14*8)/2, 155, "Continue", 255);
 			draw_text((SCREEN_W - 14*8)/2, 155 + can_continue*10, "New Game", 255);
 			draw_text((SCREEN_W - 14*8)/2, 165 + can_continue*10, "New Game (Wuss mode)", 255);
@@ -664,8 +608,6 @@ int main(int argc, char **argv)
 		}
 	}
 
-//	if (argc >= 2) DungeonPlay(argv[1]);
-//	else DungeonPlay("");
     if(playersprite != NULL)
         SDL_FreeSurface(playersprite);
     if(artifact_spr != NULL)
@@ -832,7 +774,6 @@ int DungeonPlay(char *fname)
 	if (game_load) {
 		first_game = 0;
 		ReadPlayerData();
-		//Paint(rooms[0].x+1, rooms[0].y+1, rooms[0].w-2, rooms[0].h-2, "romfs:/d/fbossroom.loc");
 	} else {
 		player_x = map.w * 32 / 2 - PLAYERW/2;
 		player_y = map.h * 32 / 2 - PLAYERH/2;
@@ -1462,6 +1403,7 @@ void HandleEvents()
 						break;
 					case SDLK_l: // 3ds KEY_L
 						CancelVoluntaryExit();
+						ClearInput();
 						ShowHelp();
 						break;
 
