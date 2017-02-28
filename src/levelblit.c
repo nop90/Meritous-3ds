@@ -409,10 +409,10 @@ int main(int argc, char **argv)
 	int i;
 	int light = 0;
 	int x, y;
-//	int pulse[SCREEN_W * SCREEN_H];
-	int *pulse;
-//	int precalc_sine[400];
-	int *precalc_sine;
+static	int pulse[SCREEN_W * SCREEN_H];
+//	int *pulse;
+static	int precalc_sine[400];
+//	int *precalc_sine;
 	int tick = 10000000;
 	int option = 0;
 	int can_continue = 0;
@@ -423,8 +423,8 @@ int main(int argc, char **argv)
 	int ticker_tick = 0;
 //	unsigned int stime = 0;
 	
-	pulse = (int*)malloc(SCREEN_W * SCREEN_H*sizeof(int));
-	precalc_sine = (int*)malloc(400*sizeof(int));
+//	pulse = (int*)malloc(SCREEN_W * SCREEN_H*sizeof(int));
+//	precalc_sine = (int*)malloc(400*sizeof(int));
 	
 	mkdir("/3ds", 0777);
 	mkdir("/3ds/Meritous", 0777);
@@ -434,7 +434,6 @@ int main(int argc, char **argv)
 	rooms = (Room*) malloc(3000*sizeof(Room));
 
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK);
-//	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK);
 
 	FILE *wm_mask_file;
 
@@ -444,7 +443,8 @@ int main(int argc, char **argv)
 	asceai = IMG_Load("romfs:/i/asceai.png");
 	wm_icon = IMG_Load("romfs:/i/icon.png");
 
-	screen = SDL_SetVideoMode(SCREEN_W, SCREEN_H, 8, SDL_HWSURFACE | (SDL_FULLSCREEN * fullscreen) | SDL_CONSOLEBOTTOM);
+//	screen = SDL_SetVideoMode(SCREEN_W, SCREEN_H, 8, SDL_HWSURFACE | (SDL_FULLSCREEN * fullscreen) | SDL_CONSOLEBOTTOM);
+	screen = SDL_SetVideoMode(SCREEN_W, SCREEN_H, 8, SDL_HWSURFACE | (SDL_FULLSCREEN * fullscreen));
     SDL_JoystickOpen(0);
     SDL_ShowCursor(SDL_DISABLE);
 	
@@ -519,10 +519,10 @@ int main(int argc, char **argv)
 
 			SetTitlePalette2(ticker_tick);
 
-			col_p = (Uint16 *)title_pr->pixels;
-			src_p = (Uint16 *)title->pixels;
-//			col_p = (Uint8 *)title_pr->pixels;
-//			src_p = (Uint8 *)title->pixels;
+//			col_p = (Uint16 *)title_pr->pixels;
+//			src_p = (Uint16 *)title->pixels;
+			col_p = (Uint8 *)title_pr->pixels;
+			src_p = (Uint8 *)title->pixels;
 			if ((tick % 10) == 0) {
 				for (i = 0; i < SCREEN_W*SCREEN_H; i++) {
 				  *(col_p++) = Uint8_Bound(*(src_p++)+precalc_sine[(pulse[i]+tick)%400]);
@@ -572,8 +572,13 @@ int main(int argc, char **argv)
 				if (voluntary_exit) {
 					executable_running = 0;
 					on_title = 0;
-					//SDL_Quit();
-					//exit(0);
+					freeAudio();
+					free(rooms);
+//					free(pulse);
+//					free(precalc_sine);
+					romfsExit();
+					SDL_Quit();
+					exit(0);
 				}
 			}
 
@@ -630,8 +635,8 @@ int main(int argc, char **argv)
     freeAudio();
 
 	free(rooms);
-	free(pulse);
-	free(precalc_sine);
+//	free(pulse);
+//	free(precalc_sine);
 	romfsExit();
     SDL_Quit();
 
@@ -1520,7 +1525,14 @@ void HandleEvents()
 				}
 			}
 			if (event.type == SDL_QUIT) {
-				voluntary_exit = 1;
+//				voluntary_exit = 1;
+					freeAudio();
+					free(rooms);
+//					free(pulse);
+//					free(precalc_sine);
+					romfsExit();
+					SDL_Quit();
+					exit(0);
 			}
 		}
 
