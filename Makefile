@@ -151,7 +151,7 @@ cci: $(TARGET)-strip.elf
 	@echo "built ... 3ds"
 #---------------------------------------------------------------------------------
 cia: $(TARGET)-strip.elf
-	@makerom -f cia -o $(TARGET).cia -elf $(TARGET)-strip.elf -rsf port/3ds/$(TARGET).rsf -icon port/3ds/icon.bin -banner port/3ds/banner.bin -exefslogo -target t
+	@makerom -f cia -o $(TARGET).cia -elf $(TARGET)-strip.elf -rsf resources/$(TARGET).rsf -icon resources/icon.bin -banner resources/banner.bin -exefslogo -target t
 	@echo "built ... cia"
 #---------------------------------------------------------------------------------
 else
