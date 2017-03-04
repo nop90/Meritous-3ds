@@ -670,14 +670,14 @@ void ProgressBarScreen(int part, float progress, char *message, float t_parts)
 {
 	memset(screen->pixels, 0, SCREEN_W*SCREEN_H);
 
-	DrawRect(200/2 + 40, 108, 2/2, 50/2, 80);
-	DrawRect(202/2 + 40, 219/2, 236/2, 46/2, 20);
-	draw_text(232/2 + 40, 228/2, message, 255);
-	DrawRect(232/2 + 40, 244/2, 176/2, 12/2, 128);
-	DrawRect(234/2 + 40, 246/2, 172/2, 8/2, 0);
+	DrawRect(200/2, 108, 240/2 + 80, 50/2, 80);
+	DrawRect(202/2, 219/2, 236/2 + 80, 46/2, 20);
+	draw_text(232/2 - 8, 228/2 - 2, message, 255);
+	DrawRect(232/2, 244/2, 176/2 + 80, 12/2, 128);
+	DrawRect(234/2, 246/2, 172/2 + 80, 8/2, 0);
 
-	if ((int)(172.0 * progress / t_parts + (172.0 / t_parts * part)) > 0) {
-		DrawRect(234/2 + 40, 246/2, (int)(172.0/2 * progress / t_parts + (172.0/2 / t_parts * part)), 8/2, 200);
+	if ((int)(166.0 * progress / t_parts + (166.0 / t_parts * part)) > 0) {
+		DrawRect(234/2, 246/2, (int)(166.0 * progress / t_parts + (166.0 / t_parts * part)), 8/2, 200);
 	}
 	VideoUpdate();
 	DummyEventPoll();
@@ -690,13 +690,13 @@ void LoadingScreen(int part, float progress)
 	if (game_load) t_parts = 5.0;
 	else t_parts = 3.0;
 
-	ProgressBarScreen(part, progress, "Loading...", t_parts);
+	ProgressBarScreen(part, progress, "Loading... please wait", t_parts);
 	ClearInput();
 }
 
 void SavingScreen(int part, float progress)
 {
-	ProgressBarScreen(part, progress, "Saving...", 4.0);
+	ProgressBarScreen(part, progress, "Saving... please wait", 4.0);
 	ClearInput();
 }
 
