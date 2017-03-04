@@ -51,7 +51,7 @@ CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++11 -findirect-inlining
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=3dsx.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 
-LIBS	:= -lsdl_mixer -lmikmod -lmad -lsdl_image -lsdl -lpng -ljpeg -lz -lcitro3d -lctru -lm
+LIBS	:= -lSDL_mixer -lmikmod -lmad -lSDL_image -lSDL -lpng -ljpeg -lz -lcitro3d -lctru -lm
 
 #-  -lvorbisidec 
 
