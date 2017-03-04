@@ -50,7 +50,7 @@
 #define SCREEN_W 400
 #define SCREEN_H 240
 
-#define MERITOUS_VERSION "v 1.2"
+#define MERITOUS_VERSION "v 1.21"
 
 int RECORDING = 0;
 int PLAYBACK = 0;
@@ -531,7 +531,7 @@ static	int precalc_sine[400];
 
 			SDL_BlitSurface(title_pr, NULL, screen, NULL);
 
-			draw_text(40 + 17, 156/2, MERITOUS_VERSION, 112 + sin((float)ticker_tick / 15)*30);
+			draw_text(17, 92, MERITOUS_VERSION, 112 + sin((float)ticker_tick / 15)*30);
 			if (can_continue) draw_text((SCREEN_W - 14*8)/2, 155, "Continue", 255);
 			draw_text((SCREEN_W - 14*8)/2, 155 + can_continue*10, "New Game", 255);
 			draw_text((SCREEN_W - 14*8)/2, 165 + can_continue*10, "New Game (Wuss mode)", 255);
@@ -2781,7 +2781,9 @@ void DrawArtifacts()
 
 void Swap(int *a, int *b)
 {
-	*a ^= *b ^= *a ^= *b;
+	int t = *a;
+	*a = *b;
+	*b = t;
 }
 
 void ThinLine(SDL_Surface *scr, int x1, int y1, int x2, int y2, Uint8 col)
