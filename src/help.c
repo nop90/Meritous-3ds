@@ -101,13 +101,13 @@ void DisplayHelp()
 	int follow_link = 0;
 	char linkfollow[20] = "";
 
-	DrawRect(23, 23, 274, 194, 0);
-	DrawRect(24, 24, 272, 192, 200);
-	DrawRect(25, 25, 270, 190, 255);
-	DrawRect(26, 26, 268, 188, 200);
-	DrawRect(27, 27, 266, 186, 100);
-	DrawRect(30, 30, 260, 180, 20);
-	DrawRect(35, 35, 250, 170, 60);
+	DrawRect(23, 23, 274 + 80, 194, 0);
+	DrawRect(24, 24, 272 + 80, 192, 200);
+	DrawRect(25, 25, 270 + 80, 190, 255);
+	DrawRect(26, 26, 268 + 80, 188, 200);
+	DrawRect(27, 27, 266 + 80, 186, 100);
+	DrawRect(30, 30, 260 + 80, 180, 20);
+	DrawRect(35, 35, 250 + 80, 170, 60);
 
 	// 70x40 display
 	current_sec = hlp->s[my_sec];
@@ -117,7 +117,7 @@ void DisplayHelp()
 	if (my_line >= (current_sec->lines)) my_line = current_sec->lines - 1;
 	for (i = 0; i < 2; i++) {
 		draw_text(23+i, 40+(my_cursor - my_line)*10, "->", 255);
-		draw_text(279+i, 40+(my_cursor - my_line)*10, "<-", 255);
+		draw_text((SCREEN_W-41)+i, 40+(my_cursor - my_line)*10, "<-", 255);
 	}
 
 	for (i = 0; i < 16; i++) {
@@ -129,13 +129,13 @@ void DisplayHelp()
 				switch (ltext[0]) {
 					case '!':
 
-						draw_text(40 + (240-strlen(ltext+1)*8)/2, 40+i*10, ltext+1, 255);
+						draw_text(80 + (240-strlen(ltext+1)*8)/2, 40+i*10, ltext+1, 255);
 						break;
 					case '?':
 						strncpy(c_ident, ltext+1, strchr(ltext+1, '?')-ltext-1);
 						c_ident[strchr(ltext+1, '?')-ltext-1] = 0;
 
-						draw_text(40, 40+i*10, strchr(ltext+1, '?')+1, my_cursor == line_num ? 200+(tick%16)*3 : 150);
+						draw_text(80, 40+i*10, strchr(ltext+1, '?')+1, my_cursor == line_num ? 200+(tick%16)*3 : 150);
 						if ((my_link == 1)&&(my_cursor == line_num)) {
 							follow_link = 1;
 							//my_link = 0;
@@ -143,7 +143,7 @@ void DisplayHelp()
 						}
 						break;
 					default:
-                            draw_text(40, 40+i*10, ltext, 200);
+                            draw_text(80, 40+i*10, ltext, 200);
 						break;
 				}
 			}

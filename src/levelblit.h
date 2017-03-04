@@ -27,6 +27,9 @@
 #define PLAYERW 16
 #define PLAYERH 24
 
+#define SCREEN_W 400
+#define SCREEN_H 240
+
 extern SDL_Surface *screen;
 
 extern int player_x, player_y;

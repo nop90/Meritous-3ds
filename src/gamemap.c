@@ -176,13 +176,13 @@ void DisplayAutomap()
 	if (minimap_scroll_x >= 512 - (200/2)) minimap_scroll_x = 512 - (200/2) - 1;
 	if (minimap_scroll_y >= 512 - (229/2)) minimap_scroll_y = 512 - (229/2) - 1;
 
-	DrawRect(2, 32, 432/2, 190, 255);
+	DrawRect(40 + 2, 32, 432/2, 190, 255);
 	t++;
 
 	for (y = 0; y < 54; y++) {
 		for (x = 0; x < 54; x++) {
 			xcol = 0;
-			df_x = x * 8 + 2-110;
+			df_x = 40 + x * 8 + 2-110;
 			df_y = y * 8 + 32-127;
 
 			rx = c_scroll_x / 32 - 27 + x;
@@ -279,7 +279,7 @@ void DisplayAutomap()
 	SDL_FillRect(screen, &position, 255);
 	SDL_BlitSurface(automap, &from, screen, &position);*/
 
-    position.x = (434/2)+3;
+    position.x = 40 + (434/2)+3;
 	position.y = 32;
 	position.w = 97;
 	position.h = 236;
@@ -350,11 +350,11 @@ void DisplayAutomap()
 	// |            |     |
 	// +-------2----+-----+
 
-	DrawRect(0, 29, 320, 3, 230-32); 	// 1
-	DrawRect(0, 227-5, 320, 4, 230-32); 	// 2
-	DrawRect(0, 29, 4, 227-32, 230-32); 	// 3
-	DrawRect(434/2, 29, 3, 227-32, 230-32); 	// 4
-	DrawRect(317, 29, 3, 227-32, 230-32); 	// 5
+	DrawRect(0, 29, 400, 3, 230-32); 	// 1
+	DrawRect(0, 227-5, 400, 4, 230-32); 	// 2
+	DrawRect(0, 29, 44, 227-32, 230-32); 	// 3
+	DrawRect(40 + 434/2, 29, 3, 227-32, 230-32); 	// 4
+	DrawRect(40 + 317, 29, 40 + 3, 227-32, 230-32); 	// 5
 	//DrawRect(437/2, 127-1-2, 200/2, 3, 230-32); 	// 6
 
 }
