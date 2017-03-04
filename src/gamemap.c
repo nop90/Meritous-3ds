@@ -146,6 +146,9 @@ void DisplayAutomap()
 	static int t = 0;
 	int minimap_scroll_x, minimap_scroll_y;
 
+	int x_something = 200/2;
+	int y_something = 229/2;
+
 	if (key_held[K_UP]) {
 		c_scroll_y -= 32 + (key_held[K_SP]*64);
 	}
@@ -168,21 +171,21 @@ void DisplayAutomap()
 
 	if (artifacts[0] && (!full_rend)) FullRender();
 
-	minimap_scroll_x = (c_scroll_x / 32 - 200/2);
-	minimap_scroll_y = (c_scroll_y / 32 - 229/2);
+	minimap_scroll_x = (c_scroll_x / 32 - x_something);
+	minimap_scroll_y = (c_scroll_y / 32 - y_something);
 	if (minimap_scroll_x < 0) minimap_scroll_x = 0;
 	if (minimap_scroll_y < 0) minimap_scroll_y = 0;
 
-	if (minimap_scroll_x >= 512 - (200/2)) minimap_scroll_x = 512 - (200/2) - 1;
-	if (minimap_scroll_y >= 512 - (229/2)) minimap_scroll_y = 512 - (229/2) - 1;
+	if (minimap_scroll_x >= 512 - (x_something)) minimap_scroll_x = 512 - (x_something) - 1;
+	if (minimap_scroll_y >= 512 - (y_something)) minimap_scroll_y = 512 - (y_something) - 1;
 
-	DrawRect(40 + 2, 32, 432/2, 190, 255);
+	DrawRect(2, 32, 592/2, 190, 255);
 	t++;
 
 	for (y = 0; y < 54; y++) {
 		for (x = 0; x < 54; x++) {
 			xcol = 0;
-			df_x = 40 + x * 8 + 2-110;
+			df_x = x * 8 + 2-90;
 			df_y = y * 8 + 32-127;
 
 			rx = c_scroll_x / 32 - 27 + x;
@@ -279,7 +282,7 @@ void DisplayAutomap()
 	SDL_FillRect(screen, &position, 255);
 	SDL_BlitSurface(automap, &from, screen, &position);*/
 
-    position.x = 40 + (434/2)+3;
+    position.x = 80 + (434/2)+3;
 	position.y = 32;
 	position.w = 97;
 	position.h = 236;
@@ -312,10 +315,10 @@ void DisplayAutomap()
 	DrawRect(rx, ry, 1, 55, 50);
 	DrawRect(rx+54, ry, 1, 55, 50);
 
-	rx = (c_scroll_x / 32 - 27) * (200/2) / 512  + (437/2);
-	ry = (c_scroll_y / 32 - 27) * (200/2) / 512  + 32;
-	rw = (54 * (200/2) / 512);
-	rh = (54 * (200/2) / 512);
+	rx = (c_scroll_x / 32 - 27) * (x_something) / 512  + (437/2);
+	ry = (c_scroll_y / 32 - 27) * (x_something) / 512  + 32;
+	rw = (54 * (x_something) / 512);
+	rh = (54 * (x_something) / 512);
 
 	if (rx < (437/2)+20) {
 		rw -= ((437/2) - rx);
@@ -325,11 +328,11 @@ void DisplayAutomap()
 		rh -= (32 - ry);
 		ry = 32;
 	}
-	if (rx+rw >= (437/2) + (200/2) - 20) {
-		rw -= ((rx+rw) - ((437/2) + (200/2) - 20));
+	if (rx+rw >= (437/2) + (x_something) - 20) {
+		rw -= ((rx+rw) - ((437/2) + (x_something) - 20));
 	}
-	if (ry+rh >= 32 + (200/2) - 20) {
-		rh -= ((ry+rh) - (32 + (200/2) - 20));
+	if (ry+rh >= 32 + (x_something) - 20) {
+		rh -= ((ry+rh) - (32 + (x_something) - 20));
 	}
 
 	DrawRect(rx, ry, rw + 1, 1, 50);
@@ -352,9 +355,9 @@ void DisplayAutomap()
 
 	DrawRect(0, 29, 400, 3, 230-32); 	// 1
 	DrawRect(0, 227-5, 400, 4, 230-32); 	// 2
-	DrawRect(0, 29, 44, 227-32, 230-32); 	// 3
-	DrawRect(40 + 434/2, 29, 3, 227-32, 230-32); 	// 4
-	DrawRect(40 + 317, 29, 40 + 3, 227-32, 230-32); 	// 5
-	//DrawRect(437/2, 127-1-2, 200/2, 3, 230-32); 	// 6
+	DrawRect(0, 29, 4, 227-32, 230-32); 	// 3
+	DrawRect(80 + 434/2, 29, 3, 227-32, 230-32); 	// 4
+	DrawRect(80 + 317, 29, 3, 227-32, 230-32); 	// 5
+	//DrawRect(437/2, 127-1-2, x_something, 3, 230-32); 	// 6
 
 }
