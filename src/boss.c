@@ -501,7 +501,8 @@ void DrawPowerObject()
 			if (CanGetArtifact()) {
 				if ((Get((player_x+PLAYERW/2)/32, (player_y+PLAYERH/2)/32)==42) ||
 					(PlayerDist(rooms[player_room].w * 16 + rooms[player_room].x * 32,
-								rooms[player_room].h * 16 + rooms[player_room].y * 32) < 32)) {
+								rooms[player_room].h * 16 + rooms[player_room].y * 32) < 40)) {
+//								rooms[player_room].h * 16 + rooms[player_room].y * 32) < 32)) {
 					if (rooms[player_room].enemies == 0) {
 						off_v = 48 - (collect * 48 / 100);
 						hover_v = 16 - (collect * 16 / 100);
