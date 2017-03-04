@@ -502,9 +502,9 @@ void DrawStream(int t)
 			if (t == 251) {
 				SND_CircuitRelease(1000);
 			}
-			DrawCircle(320+32 - scr_x, 240 - scr_y, (t - 254) * 10, 255);
-			DrawCircle(320+32 - scr_x, 240 - scr_y, (t - 252) * 10, 225);
-			DrawCircle(320+32 - scr_x, 240 - scr_y, (t - 250) * 10, 195);
+			DrawCircle(SCREEN_W+32 - scr_x, SCREEN_H - scr_y, (t - 254) * 10, 255);
+			DrawCircle(SCREEN_W+32 - scr_x, SCREEN_H - scr_y, (t - 252) * 10, 225);
+			DrawCircle(SCREEN_W+32 - scr_x, SCREEN_H - scr_y, (t - 250) * 10, 195);
 		}
 	}
 
@@ -642,12 +642,12 @@ void DrawScrolly(int t)
 		a_dir = ((float)t / 10.0) + (M_PI*(float)i/2);
 
 		for (j = 10; j >= 0; j--) {
-			DrawCircleEx(320+cos(a_dir)*v_radius, 240+sin(a_dir)*v_radius, 22 + j * 2, 0, abs(j-3) * 15);
+			DrawCircleEx(SCREEN_W+cos(a_dir)*v_radius, SCREEN_H+sin(a_dir)*v_radius, 22 + j * 2, 0, abs(j-3) * 15);
 		}
-		DrawCircleEx(320+cos(a_dir)*v_radius, 240+sin(a_dir)*v_radius, 20, 0, 0);
+		DrawCircleEx(SCREEN_W+cos(a_dir)*v_radius, SCREEN_H+sin(a_dir)*v_radius, 20, 0, 0);
 
-		draw_to.x = 320 + cos(a_dir) * v_radius - 16;
-		draw_to.y = 240 + sin(a_dir) * v_radius - 16;
+		draw_to.x = SCREEN_W + cos(a_dir) * v_radius - 16;
+		draw_to.y = SCREEN_H + sin(a_dir) * v_radius - 16;
 		SDL_BlitSurface(artifact_spr, &draw_from, screen, &draw_to);
 	}
 
@@ -670,15 +670,15 @@ void DrawCircuitFlash(int t, int method)
 			xpos = rand()%641;
 			ypos = rand()%481;
 		} else {
-			xpos = 320;
-			ypos = 240;
+			xpos = SCREEN_W;
+			ypos = SCREEN_H;
 		}
 	}
 
 	from.x = xpos;
 	from.y = ypos;
-	from.w = 640;
-	from.h = 480;
+	from.w = SCREEN_W * 2;
+	from.h = SCREEN_H * 2;
 
 	SDL_BlitSurface(circ, &from, screen, NULL);
 

@@ -47,8 +47,10 @@
 
 #define PLAYERW 16
 #define PLAYERH 24
+#define SCREEN_W 400
+#define SCREEN_H 240
 
-#define MERITOUS_VERSION "v 1.2"
+#define MERITOUS_VERSION "v 1.21"
 
 int RECORDING = 0;
 int PLAYBACK = 0;
@@ -251,9 +253,6 @@ void DrawCircleExDefault(int x, int y, int r, int r2, unsigned char c);
 
 void ThinLine(SDL_Surface *scr, int x1, int y1, int x2, int y2, Uint8 col);
 void LockDoors(int r);
-
-#define SCREEN_W 320
-#define SCREEN_H 240
 
 int vol = MIX_MAX_VOLUME;
 int vol_se = MIX_MAX_VOLUME;
@@ -532,7 +531,7 @@ static	int precalc_sine[400];
 
 			SDL_BlitSurface(title_pr, NULL, screen, NULL);
 
-			draw_text(17, 156/2, MERITOUS_VERSION, 112 + sin((float)ticker_tick / 15)*30);
+			draw_text(17, 92, MERITOUS_VERSION, 112 + sin((float)ticker_tick / 15)*30);
 			if (can_continue) draw_text((SCREEN_W - 14*8)/2, 155, "Continue", 255);
 			draw_text((SCREEN_W - 14*8)/2, 155 + can_continue*10, "New Game", 255);
 			draw_text((SCREEN_W - 14*8)/2, 165 + can_continue*10, "New Game (Wuss mode)", 255);
@@ -671,14 +670,14 @@ void ProgressBarScreen(int part, float progress, char *message, float t_parts)
 {
 	memset(screen->pixels, 0, SCREEN_W*SCREEN_H);
 
-	DrawRect(200/2, 108, 240/2, 50/2, 80);
-	DrawRect(202/2, 219/2, 236/2, 46/2, 20);
-	draw_text(232/2, 228/2, message, 255);
-	DrawRect(232/2, 244/2, 176/2, 12/2, 128);
-	DrawRect(234/2, 246/2, 172/2, 8/2, 0);
+	DrawRect(200/2, 108, 240/2 + 80, 50/2, 80);
+	DrawRect(202/2, 219/2, 236/2 + 80, 46/2, 20);
+	draw_text(232/2 - 8, 228/2 - 2, message, 255);
+	DrawRect(232/2, 244/2, 176/2 + 80, 12/2, 128);
+	DrawRect(234/2, 246/2, 172/2 + 80, 8/2, 0);
 
-	if ((int)(172.0 * progress / t_parts + (172.0 / t_parts * part)) > 0) {
-		DrawRect(234/2, 246/2, (int)(172.0/2 * progress / t_parts + (172.0/2 / t_parts * part)), 8/2, 200);
+	if ((int)(166.0 * progress / t_parts + (166.0 / t_parts * part)) > 0) {
+		DrawRect(234/2, 246/2, (int)(166.0 * progress / t_parts + (166.0 / t_parts * part)), 8/2, 200);
 	}
 	VideoUpdate();
 	DummyEventPoll();
@@ -691,13 +690,13 @@ void LoadingScreen(int part, float progress)
 	if (game_load) t_parts = 5.0;
 	else t_parts = 3.0;
 
-	ProgressBarScreen(part, progress, "Loading...", t_parts);
+	ProgressBarScreen(part, progress, "Loading... please wait", t_parts);
 	ClearInput();
 }
 
 void SavingScreen(int part, float progress)
 {
-	ProgressBarScreen(part, progress, "Saving...", 4.0);
+	ProgressBarScreen(part, progress, "Saving... please wait", 4.0);
 	ClearInput();
 }
 
@@ -884,9 +883,9 @@ int DungeonPlay(char *fname)
 		}
 
 		if (!map_enabled) {
-			ScrollTo((player_x + PLAYERW/2 - 320/2)-4, (player_y + PLAYERH/2 - 240/2)-8);
+			ScrollTo((player_x + PLAYERW/2 - SCREEN_W/2)-4, (player_y + PLAYERH/2 - SCREEN_H/2)-8);
 			DrawLevel(scroll_x, scroll_y, 1, 1);
-			//DrawLevel(player_x + 8 - 320, player_y + 12 - 240);
+			//DrawLevel(player_x + 8 - SCREEN_W, player_y + 12 - SCREEN_H);
 
 			if (player_dying == 0) {
 				DrawShield();
@@ -904,9 +903,9 @@ int DungeonPlay(char *fname)
 					}
 				}
 
-				DrawPlayer(312/2, 228/2, player_dir, player_wlk / wlk_wait);
+				DrawPlayer((SCREEN_W-(PLAYERW/2))/2, (SCREEN_H-(PLAYERH/2))/2, player_dir, player_wlk / wlk_wait);
 			} else {
-				if (t % 2 == 0) DrawPlayer(312/2, 228/2, player_dir, player_wlk / wlk_wait);
+				if (t % 2 == 0) DrawPlayer((SCREEN_W-(PLAYERW/2))/2, (SCREEN_H-(PLAYERH/2))/2, player_dir, player_wlk / wlk_wait);
 
 				if (!game_paused)
 					player_dying++;
@@ -990,7 +989,7 @@ int DungeonPlay(char *fname)
 			}
 
 			if (circuit_release > 0) {
-				DrawCircle(release_x - player_x + 320/2+4, release_y - player_y + 240/2+4, circuit_release * release_range / 20,sin((float)circuit_release / 20.0)*127+127);
+				DrawCircle(release_x - player_x + SCREEN_W/2+4, release_y - player_y + SCREEN_H/2+4, circuit_release * release_range / 20,sin((float)circuit_release / 20.0)*127+127);
 				if (!game_paused) {
 					CircuitBullets(release_x, release_y, circuit_release * release_range / 20);
 					//HurtEnemies(release_x, release_y, circuit_release * release_range / 20, release_str);
@@ -1085,13 +1084,13 @@ if (!tele_select) {
 				sprintf(buf+1, "**");
 			}
 
-			draw_text(295, 4, buf, 200);
+			draw_text(SCREEN_W - 25, 4, buf, 200);
 
-			DrawRect(295, 13, 24, 4, 240);
-			DrawRect(296, 14, 22, 2, 0);
+			DrawRect(SCREEN_W - 25, 13, 24, 4, 240);
+			DrawRect(SCREEN_W - 24, 14, 22, 2, 0);
 			i = (player_lives_part * 22 / 88);
 			if (i > 0) {
-				DrawRect(296, 14, i, 2, 160 + (t % 40));
+				DrawRect(SCREEN_W - 24, 14, i, 2, 160 + (t % 40));
 			}
 		}
 }
@@ -1112,7 +1111,7 @@ if (!tele_select) {
 		}
 
 if (!tele_select)
-		draw_text(295, 18 - (5*training), buf, 200);
+		draw_text(SCREEN_W - 25, 18 - (5*training), buf, 200);
 
 		DrawRect(0, SCREEN_H-14, SCREEN_W, 14, 0);
 		DrawRect(1, SCREEN_H-13, SCREEN_W-2, 12, 32);
@@ -1157,8 +1156,8 @@ if (!tele_select)
 		}
 
 		if (voluntary_exit) {
-			DrawRect(4, 80, 316-4, 80, 128);
-			DrawRect(20, 88, 300-20, 64, 64);
+			DrawRect(4, 80, SCREEN_W - 4 - 4, 80, 128);
+			DrawRect(20, 88, SCREEN_W - 20 - 20, 64, 64);
 			draw_text(((SCREEN_W/2) - ((30 * 8)/2)) , ((SCREEN_H - 8)  - 4)/2, "Are you sure you want to quit?", 255);
 			draw_text(((SCREEN_W/2) - ((23 * 8)/2))+16, ((SCREEN_H - 8) + 14)/2, "Press B to confirm.", 255);
 		}
@@ -1294,7 +1293,7 @@ if (!tele_select)
 
 	if ((player_lives == 0) && (!training)) {
 		SDL_FillRect(screen, NULL, 0);
-		draw_text((17*8)/2+((320/2)/2)/2-16, 240/2-4, "G A M E   O V E R", 255);
+		draw_text((17*8)/2+((SCREEN_W/2)/2)/2-16, SCREEN_H/2-4, "G A M E   O V E R", 255);
 		VideoUpdate();
 		SDL_Delay(2000);
 	}
@@ -1566,7 +1565,7 @@ void DrawLevel(int off_x, int off_y, int hide_not_visited, int fog_of_war)
 	int x, y, i;
 	int resolve_x, resolve_y;
 
-	DrawRect(0, 0, 320, 240, 255);
+	DrawRect(0, 0, 400, 240, 255);
 
 	if (tiles == NULL) {
 		tiles = IMG_Load("romfs:/i/tileset.png");
@@ -2172,11 +2171,11 @@ void DrawShield()
 		belts = s_size - 15;
 		s_size = 15;
 	}
-	DrawCircleEx(320/2+4, 240/2+4, 28+s_size, 28-s_size, 128 + (shield_hp*127/player_shield) - (50*(shield_hp<player_shield) + shield_recover) - 45 + ((t%4)*15));
+	DrawCircleEx(400/2+4, 240/2+4, 28+s_size, 28-s_size, 128 + (shield_hp*127/player_shield) - (50*(shield_hp<player_shield) + shield_recover) - 45 + ((t%4)*15));
 
 	for (i = 0; i < belts; i++) {
 		bpos = 13 + (30 * (i+1) / (belts+1));
-		DrawCircleEx(320/2+4, 240/2+4, bpos + 1, bpos - 1, ((i+t)%6*12));
+		DrawCircleEx(400/2+4, 240/2+4, bpos + 1, bpos - 1, ((i+t)%6*12));
 	}
 }
 
@@ -2570,7 +2569,7 @@ void SpecialTile(int x, int y)
 	static int otext = 0;
 	static int t = 0;
 	unsigned char tile;
-	char message[102] = "";
+	char message[128] = "";
 	//char message2[100] = "";
 
 	tile = Get(x, y);
@@ -2682,29 +2681,29 @@ void SpecialTile(int x, int y)
 
 	if (message[0] == 0) return;
 
-	DrawRect(0/*300 - strlen(message)*8  - 20*/, 100, 280+40, 54, 200);
-	DrawRect(5/*300 - strlen(message)*8  - 15*/, 105, 280+30, 44, 32);
-	DrawRect(10/*300 - strlen(message)*8  - 10*/, 110, 280+20, 34, 64);
+	DrawRect(0/*300 - strlen(message)*8  - 20*/, 100, SCREEN_W, 54, 200);
+	DrawRect(5/*300 - strlen(message)*8  - 15*/, 100 + 5, SCREEN_W - 10, 44, 32);
+	DrawRect(10/*300 - strlen(message)*8  - 10*/, 100 + 10, SCREEN_W - 20, 34, 64);
 
-    // adapt to 320x240
-    if(strlen(message) > 35 && strlen(message) <= 35*2)
+    // adapt to 400x240
+    if(strlen(message) > 44 && strlen(message) <= 44*2)
     {
         //int pasteStart = 0;
         //int i = 0;
-        /*for(i=35;i<100;i++)
+        /*for(i=44;i<100;i++)
         {
             message2[pasteStart] = message[i];
             pasteStart++;
             message[i] = "";
         }*/
-        memmove(message+36,message+35,66);
-        message[35] = '\n';
+        memmove(message+45,message+44,66);
+        message[44] = '\n';
         //message2[strlen(message)] = '\n';
 
         draw_text(/*300 - strlen(message)*8*/20, 120, message, t%16<8 ? 255 : 192);
         //draw_text(/*300 - strlen(message)*8*/10, 132, message2, t%16<8 ? 255 : 192);
     }
-    else if(strlen(message) > 35*2)
+    else if(strlen(message) > 44*2)
     {
         draw_text(20, 120, message, t%16<8 ? 255 : 192);
     }
@@ -2782,7 +2781,9 @@ void DrawArtifacts()
 
 void Swap(int *a, int *b)
 {
-	*a ^= *b ^= *a ^= *b;
+	int t = *a;
+	*a = *b;
+	*b = t;
 }
 
 void ThinLine(SDL_Surface *scr, int x1, int y1, int x2, int y2, Uint8 col)
