@@ -2681,34 +2681,29 @@ void SpecialTile(int x, int y)
 
 	if (message[0] == 0) return;
 
-	DrawRect(0/*300 - strlen(message)*8  - 20*/, 100, SCREEN_W, 54, 200);
-	DrawRect(5/*300 - strlen(message)*8  - 15*/, 100 + 5, SCREEN_W - 10, 44, 32);
-	DrawRect(10/*300 - strlen(message)*8  - 10*/, 100 + 10, SCREEN_W - 20, 34, 64);
+	DrawRect(0, 100, SCREEN_W, 54, 200);
+	DrawRect(5, 100 + 5, SCREEN_W - 10, 44, 32);
+	DrawRect(10, 100 + 10, SCREEN_W - 20, 34, 64);
 
     // adapt to 400x240
     if(strlen(message) > 44 && strlen(message) <= 44*2)
     {
-        //int pasteStart = 0;
-        //int i = 0;
-        /*for(i=44;i<100;i++)
-        {
-            message2[pasteStart] = message[i];
-            pasteStart++;
-            message[i] = "";
-        }*/
-        memmove(message+45,message+44,66);
-        message[44] = '\n';
-        //message2[strlen(message)] = '\n';
+         int pos = 44;
+		while( pos>0 && message[pos]!=' ') pos--;
+		if (pos==0) {
+			pos = 44;
+			memmove(message+45,message+44,66);
+        }
+		message[pos] = '\n';
 
-        draw_text(/*300 - strlen(message)*8*/20, 120, message, t%16<8 ? 255 : 192);
-        //draw_text(/*300 - strlen(message)*8*/10, 132, message2, t%16<8 ? 255 : 192);
+        draw_text(20, 120, message, t%16<8 ? 255 : 192);
     }
     else if(strlen(message) > 44*2)
     {
         draw_text(20, 120, message, t%16<8 ? 255 : 192);
     }
     else
-        draw_text(/*300 - strlen(message)*8*/280-(strlen(message)*8), 120, message, t%16<8 ? 255 : 192);
+        draw_text(200-(strlen(message)*8)/2, 120, message, t%16<8 ? 255 : 192);
 
 
 	t++;
@@ -2765,12 +2760,12 @@ void DrawArtifacts()
 
                 if(i>5)
                 {
-                    to.x = 254;
+                    to.x = 334;
                     to.y = 29 + (i-6) * 33;
                 }
                 else
                 {
-                    to.x = 288;
+                    to.x = 368;
                     to.y = 29 + i * 33;
                 }
                 SDL_BlitSurface(artifact_spr, &from, screen, &to);
