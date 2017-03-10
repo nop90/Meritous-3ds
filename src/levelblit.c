@@ -160,6 +160,10 @@ int specialmessagetimer;
 int timer_ps = 0;
 int timer_v[10];
 
+int *pulse;
+int *precalc_sine;
+
+
 float RandomDir()
 {
 	return (float)(rand()%256)*M_PI*2.0/256.0;
@@ -408,10 +412,8 @@ int main(int argc, char **argv)
 	int i;
 	int light = 0;
 	int x, y;
-static	int pulse[SCREEN_W * SCREEN_H];
-//	int *pulse;
-static	int precalc_sine[400];
-//	int *precalc_sine;
+//static	int pulse[SCREEN_W * SCREEN_H];
+//static	int precalc_sine[400];
 	int tick = 10000000;
 	int option = 0;
 	int can_continue = 0;
@@ -422,8 +424,8 @@ static	int precalc_sine[400];
 	int ticker_tick = 0;
 //	unsigned int stime = 0;
 	
-//	pulse = (int*)malloc(SCREEN_W * SCREEN_H*sizeof(int));
-//	precalc_sine = (int*)malloc(400*sizeof(int));
+	pulse = (int*)malloc(SCREEN_W * SCREEN_H*sizeof(int));
+	precalc_sine = (int*)malloc(400*sizeof(int));
 	
 	mkdir("/3ds", 0777);
 	mkdir("/3ds/Meritous", 0777);
@@ -573,8 +575,8 @@ static	int precalc_sine[400];
 					on_title = 0;
 					freeAudio();
 					free(rooms);
-//					free(pulse);
-//					free(precalc_sine);
+					free(pulse);
+					free(precalc_sine);
 					romfsExit();
 					SDL_Quit();
 					exit(0);
@@ -634,8 +636,8 @@ static	int precalc_sine[400];
     freeAudio();
 
 	free(rooms);
-//	free(pulse);
-//	free(precalc_sine);
+	free(pulse);
+	free(precalc_sine);
 	romfsExit();
     SDL_Quit();
 
@@ -1293,7 +1295,7 @@ if (!tele_select)
 
 	if ((player_lives == 0) && (!training)) {
 		SDL_FillRect(screen, NULL, 0);
-		draw_text((17*8)/2+((SCREEN_W/2)/2)/2-16, SCREEN_H/2-4, "G A M E   O V E R", 255);
+		draw_text((SCREEN_W/2)-(17*8)/2, SCREEN_H/2-4, "G A M E   O V E R", 255);
 		VideoUpdate();
 		SDL_Delay(2000);
 	}
@@ -1527,8 +1529,8 @@ void HandleEvents()
 //				voluntary_exit = 1;
 					freeAudio();
 					free(rooms);
-//					free(pulse);
-//					free(precalc_sine);
+					free(pulse);
+					free(precalc_sine);
 					romfsExit();
 					SDL_Quit();
 					exit(0);
