@@ -429,7 +429,7 @@ int main(int argc, char **argv)
 	
 	mkdir("/3ds", 0777);
 	mkdir("/3ds/Meritous", 0777);
-
+	osSetSpeedupEnable(true);
 	romfsInit();
 	
 	rooms = (Room*) malloc(3000*sizeof(Room));
@@ -444,8 +444,7 @@ int main(int argc, char **argv)
 	asceai = IMG_Load("romfs:/i/asceai.png");
 	wm_icon = IMG_Load("romfs:/i/icon.png");
 
-//	screen = SDL_SetVideoMode(SCREEN_W, SCREEN_H, 8, SDL_HWSURFACE | (SDL_FULLSCREEN * fullscreen) | SDL_CONSOLEBOTTOM);
-	screen = SDL_SetVideoMode(SCREEN_W, SCREEN_H, 8, SDL_HWSURFACE | (SDL_FULLSCREEN * fullscreen));
+	screen = SDL_SetVideoMode(SCREEN_W, SCREEN_H, 8, SDL_HWSURFACE||(SDL_FULLSCREEN * fullscreen));
     SDL_JoystickOpen(0);
     SDL_ShowCursor(SDL_DISABLE);
 	
@@ -674,7 +673,7 @@ void ProgressBarScreen(int part, float progress, char *message, float t_parts)
 
 	DrawRect(200/2, 108, 240/2 + 80, 50/2, 80);
 	DrawRect(202/2, 219/2, 236/2 + 80, 46/2, 20);
-	draw_text(232/2 - 8, 228/2 - 2, message, 255);
+	draw_text(400/2 - strlen(message) * 4, 228/2 - 2, message, 255);
 	DrawRect(232/2, 244/2, 176/2 + 80, 12/2, 128);
 	DrawRect(234/2, 246/2, 172/2 + 80, 8/2, 0);
 
@@ -2626,7 +2625,7 @@ void SpecialTile(int x, int y)
 				if (CanGetArtifact(rooms[player_room].room_param)) {
 
 				} else {
-					sprintf(message, "The artifact is tainted with shadow. \nYou must slay more of the shadow \nfirst.");
+					sprintf(message, "The artifact is tainted with shadow. You must slay more of the shadow first.");
 				}
 			}
 			break;
