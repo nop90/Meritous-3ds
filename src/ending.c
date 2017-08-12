@@ -170,7 +170,45 @@ void ShowEnding()
 		if (EndingEvents()) return;
 	}
 }
+//					" You say that this PSI is still PSI, but it is\n"
 
+
+char *SText[17] = {	"Merit released the locks on the PSI flowing",
+					"through the Dome, releasing the flow of PSI",
+					"into the atmosphere.",
+					"The Orcus Dome was originally built to",
+					"centralise the limited PSI available to",
+					"everyone. However, this made the existing",
+					"reserves more vulnerable to malicious users",
+					"While other PSI users initially resented",
+					"Merit for his rash behaviour, they eventually",
+					"adjusted to the decentralisation.",
+					"Eventually, PSI users grew so adept at",
+					"manipulating the diluted flows of PSI that",
+					"they were capable of the same things as before.",
+					"Each PSI user would keep their own individual",
+					"reserves of PSI for when they needed to weild",
+					"greater power, and the balance of power was",
+					"restored." };
+
+char *STextV[17] = {"Merit decided to assume the role of custodian",
+					"over the Orcus Dome, in Wervyn Anixil's place.",
+					"He resumed the experiments on PSI and found",
+					"ways of making the Dome's remaining supply go",
+					"as far as it could.",
+					"",
+					"Other PSI users were suspicious of MERIT, just",
+					"as they were wary of Wervyn Anixil before him,",
+					"but they soon adjusted.",
+					"",
+					"The balance of power was quickly restored, and",
+					"stabilised for eternity due to the work of",
+					"Wervyn Anixil and now MERIT.",
+					"",
+					"",
+					"                [[ BEST ENDING ]]",
+					""};
+/*
 char *SText[15] = {	"Merit released the locks on the PSI flowing through the Dome,",
 					"releasing the flow of PSI into the atmosphere.",
 					"",
@@ -202,7 +240,7 @@ char *STextV[15] = {"Merit decided to assume the role of custodian over the Orcu
 					"                      [[ BEST ENDING ]]",
 					"",
 					""};
-
+*/
 void DrawSText(int t)
 {
 	int offset = 540 + (t / 2);
@@ -218,7 +256,7 @@ void DrawSText(int t)
 	}
 
 	if (t < 300) {
-		for (i = 0; i < 15; i++) {
+		for (i = 0; i < 17; i++) {
 			c = (255 + (i * 100) - t*10);
 			if (c < 0) c = 0;
 			if (c > 255) c = 255;
@@ -226,7 +264,7 @@ void DrawSText(int t)
 			draw_text(68, 150+i*12, SText[i], 255-c);
 		}
 	} else {
-		for (i = 0; i < 15; i++) {
+		for (i = 0; i < 17; i++) {
 			c = 5 + (t-300) * 5;
 
 			draw_text(68, 150+i*12, SText[i], 255-c);
@@ -251,7 +289,7 @@ void DrawSTextV(int t)
 	}
 
 	if (t < 300) {
-		for (i = 0; i < 15; i++) {
+		for (i = 0; i < 17; i++) {
 			c = (255 + (i * 100) - t*10);
 			if (c < 0) c = 0;
 			if (c > 255) c = 255;
@@ -259,7 +297,7 @@ void DrawSTextV(int t)
 			draw_text(68, 150+i*12, STextV[i], 255-c);
 		}
 	} else {
-		for (i = 0; i < 15; i++) {
+		for (i = 0; i < 17; i++) {
 			c = 5 + (t-300) * 5;
 
 			draw_text(68, 150+i*12, STextV[i], 255-c);
@@ -289,31 +327,32 @@ void InitParticleStorm()
 		pt_t[i] = rand()%100;
 	}
 }
+//	" You say that this PSI is still PSI, but it is\n"
 
 char *credits[] = {
-	"Concept:                    Lancer-X/Asceai",
-	"Game design:                Lancer-X/Asceai",
-	"Graphics:                   Lancer-X/Asceai",
-	"Programming:                Lancer-X/Asceai",
-	"Sound Effects:              Various (public domain) sources",
-	"Music:                      Various artists",
-	"Beta testing:               Quasar",
-	"Beta testing:               Terryn",
-	"Beta testing:               Wervyn"
-	 "\"Ambient Light\"       Vogue of Triton"
-	 "\"Battle of Ragnarok\"  Frostbite"
-	 "\"Dragon Cave\"         TICAZ"
+	"Concept:       Lancer-X/Asceai",
+	"Game design:   Lancer-X/Asceai",
+	"Graphics:      Lancer-X/Asceai",
+	"Programming:   Lancer-X/Asceai",
+	"Sound Effects: Various (public domain) sources",
+	"Music:         Various artists",
+	"Beta testing:  Quasar",
+	"Beta testing:  Terryn",
+	"Beta testing:  Wervyn",
+	"3DS port:      NOP90"
+	 "\"Ambient Light\"      Vogue of Triton"
+	 "\"Battle of Ragnarok\" Frostbite"
+	 "\"Dragon Cave\"        TICAZ"
 	 " cavern.xm             Unknown"
-	 "\"Caverns Boss\"        Alexis Janson"
-	 "\"Forest Boss\"         Alexis Janson"
-	 "\"Catacombs Boss\"      Alexis Janson"
-	 "\"Fear 2\"              Mick Rippon"
-	 "\"The Final Battle\"    Goose/CéDA & iNVASiON"
-	 "\"Ice Frontier\"        Skaven/FC"
-	 "\"KnarkLoader 1.0\"     Rapacious"
-	 "\"RPG-Battle\"          Cyn"
-	 "\"Metallic Forest\"     Joseph Fox"
-	"3DS port:                    NOP90"
+	 "\"Caverns Boss\"       Alexis Janson"
+	 "\"Forest Boss\"        Alexis Janson"
+	 "\"Catacombs Boss\"     Alexis Janson"
+	 "\"Fear 2\"             Mick Rippon"
+	 "\"The Final Battle\"   Goose/CéDA & iNVASiON"
+	 "\"Ice Frontier\"       Skaven/FC"
+	 "\"KnarkLoader 1.0\"    Rapacious"
+	 "\"RPG-Battle\"         Cyn"
+	 "\"Metallic Forest\"    Joseph Fox"
 };
 
 void DrawCredits()
@@ -512,26 +551,36 @@ void DrawStream(int t)
 	VideoUpdate();
 }
 
-char *PText[10] = {	"Activating the seal quickly unblocked the ley lines and allowed",
-					"PSI to flow through the Dome again. The remaining shadows were",
+//					" You say that this PSI is still PSI, but it is\n"
+
+char *PText[14] = {	"Activating the seal quickly unblocked the ley",
+					"lines and allowed PSI to flow through the Dome",
+					"again. The remaining shadows were quickly ",
+					"flushed out.",
+					"",
+					"Wervyn Anixil's unconventional use of the PSI",
+					"resulted in him being burned out and rendered",
+					"powerless. Merit will see to it that he faces",
+					"judgement for his crimes.",
+					"",
+					"Neither of the two PSI weapons housed within",
+					"the Dome had beentouched.",
+					"",
+					"However . . ." };
+char *PTextV[14] ={	"Activating the seal quickly unblocked the ley",
+					"lines and allowed PSI to flow through the",
+					"Dome again. The remaining shadows were",
 					"quickly flushed out.",
 					"",
-					"Wervyn Anixil's unconventional use of the PSI resulted in him",
-					"being burned out and rendered powerless. Merit will see to it",
-					"that he faces judgement for his crimes.",
-					"",
-					"Neither of the two PSI weapons housed within the Dome had been",
-					"touched. However . . ." };
-char *PTextV[10] ={	"Activating the seal quickly unblocked the ley lines and allowed",
-					"PSI to flow through the Dome again. The remaining shadows were",
-					"quickly flushed out.",
-					"",
-					"The traitor, who was never identified, perished in the Sealing.",
-					"It soon became clear that the traitor had managed to betray and",
-					"kill the real Wervyn Anixil during his experiments on the PSI.",
-					"If the Agate Knife was never found, nobody would have been any",
-					"the wiser, and things could have turned out very differently.",
-					"However, there was one last thing for MERIT to do."};
+					"The traitor, who was never identified,",
+					"perished in the Sealing. It soon became clear",
+					"that the traitor had managed to betray and",
+					"kill the real Wervyn Anixil during his",
+					"experiments on the PSI. If the Agate Knife",
+					"was never found, nobody would have been any",
+					"the wiser, and things could have turned out",
+					"very differently. However, there was one last",
+					"thing for MERIT to do."};
 
 void DrawPText(int t)
 {
@@ -548,7 +597,7 @@ void DrawPText(int t)
 
 	if (t < 300) {
 
-		for (i = 0; i < 10; i++) {
+		for (i = 0; i < 14; i++) {
 			c = (255 + (i * 100) - t*10);
 			if (c < 0) c = 0;
 			if (c > 255) c = 255;
@@ -560,7 +609,7 @@ void DrawPText(int t)
 			}
 		}
 	} else {
-		for (i = 0; i < 10; i++) {
+		for (i = 0; i < 14; i++) {
 			c = 5 + (t-300) * 5;
 
 			if (player_shield != 30) {

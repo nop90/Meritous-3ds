@@ -146,8 +146,8 @@ void DisplayAutomap()
 	static int t = 0;
 	int minimap_scroll_x, minimap_scroll_y;
 
-	int x_something = 200/2;
-	int y_something = 229/2;
+	int x_something = 0;
+	int y_something = 0;
 
 	if (key_held[K_UP]) {
 		c_scroll_y -= 32 + (key_held[K_SP]*64);
@@ -164,29 +164,30 @@ void DisplayAutomap()
 
 	if (c_scroll_x < 0) c_scroll_x = 0;
 	if (c_scroll_y < 0) c_scroll_y = 0;
-	if (c_scroll_x >= 512*32) c_scroll_x = 512*32 - 32;
-	if (c_scroll_y >= 512*32) c_scroll_y = 512*32 - 32;
+	if (c_scroll_x >= 512*30) c_scroll_x = 512*30 - 32;
+	if (c_scroll_y >= 512*31) c_scroll_y = 512*31 - 32;
 
 	nearest_checkpoint = GetNearestCheckpoint(c_scroll_x, c_scroll_y);
 
 	if (artifacts[0] && (!full_rend)) FullRender();
 
-	minimap_scroll_x = (c_scroll_x / 32 - x_something);
-	minimap_scroll_y = (c_scroll_y / 32 - y_something);
+	minimap_scroll_x = (c_scroll_x / 38 - x_something);
+	minimap_scroll_y = (c_scroll_y / 49 - y_something);
 	if (minimap_scroll_x < 0) minimap_scroll_x = 0;
 	if (minimap_scroll_y < 0) minimap_scroll_y = 0;
 
 	if (minimap_scroll_x >= 512 - (x_something)) minimap_scroll_x = 512 - (x_something) - 1;
 	if (minimap_scroll_y >= 512 - (y_something)) minimap_scroll_y = 512 - (y_something) - 1;
 
-	DrawRect(2, 32, 592/2, 190, 255);
+//	DrawRect(2, 32, 276, 195, 255);
+	DrawRect(0, 32, 400, 195, 255);
 	t++;
 
 	for (y = 0; y < 54; y++) {
-		for (x = 0; x < 54; x++) {
+		for (x = 0; x < 60; x++) {
 			xcol = 0;
-			df_x = x * 8 + 2-90;
-			df_y = y * 8 + 32-127;
+			df_x = x * 8 + -200;
+			df_y = y * 8 + -160;
 
 			rx = c_scroll_x / 32 - 27 + x;
 			ry = c_scroll_y / 32 - 27 + y;
@@ -266,89 +267,26 @@ void DisplayAutomap()
 			}
 		}
 	}
-/*(229-10)*/
-/*(229-8)/2*/
-/*
-	position.x = 220;
-	position.y = (235-2)/2;
-	position.w = 520;
-	position.h = 520;
 
-	from.x = minimap_scroll_x + 4;
-	from.y = minimap_scroll_y + 4;
-	from.w = 520;
-	from.h = 520;
-
-	SDL_FillRect(screen, &position, 255);
-	SDL_BlitSurface(automap, &from, screen, &position);*/
-
-    position.x = 80 + (434/2)+3;
+    position.x = 283;
 	position.y = 32;
-	position.w = 97;
+	position.w = 114;
 	position.h = 236;
 
-	from.x = (minimap_scroll_x + 4)+(97/2);
-	from.y = (minimap_scroll_y + 4)+10;
-	from.w = 97;
+	from.x = (minimap_scroll_x + 4);
+	from.y = (minimap_scroll_y + 4);
+	from.w = 114;
 	from.h = 236;
 
 	SDL_FillRect(screen, &position, 255);
 	SDL_BlitSurface(automap, &from, screen, &position);
-/*
-	from.x = 0;
-	from.y = 0;
-	from.w = 200;
-	from.h = 200;
 
-	position.x = 220;
-	position.y = 32;
-
-	SDL_BlitSurface(overview, &from, screen, &position);
-*/
-/*97-2*/
-/*
-	rx = c_scroll_x / 32 - 27 - minimap_scroll_x + (437/2)-40;
-	ry = c_scroll_y / 32 - 27 - minimap_scroll_y + (235/2)-40;
-
-	DrawRect(rx, ry, 55, 1, 50);
-	DrawRect(rx, ry+54, 55, 1, 50);
-	DrawRect(rx, ry, 1, 55, 50);
-	DrawRect(rx+54, ry, 1, 55, 50);
-
-	rx = (c_scroll_x / 32 - 27) * (x_something) / 512  + (437/2);
-	ry = (c_scroll_y / 32 - 27) * (x_something) / 512  + 32;
-	rw = (54 * (x_something) / 512);
-	rh = (54 * (x_something) / 512);
-
-	if (rx < (437/2)+20) {
-		rw -= ((437/2) - rx);
-		rx = (437/2)+20;
-	}
-	if (ry < 32) {
-		rh -= (32 - ry);
-		ry = 32;
-	}
-	if (rx+rw >= (437/2) + (x_something) - 20) {
-		rw -= ((rx+rw) - ((437/2) + (x_something) - 20));
-	}
-	if (ry+rh >= 32 + (x_something) - 20) {
-		rh -= ((ry+rh) - (32 + (x_something) - 20));
-	}
-
-	DrawRect(rx, ry, rw + 1, 1, 50);
-	DrawRect(rx, ry + rh, rw + 1, 1, 50);
-	DrawRect(rx, ry, 1, rh + 1, 50);
-	DrawRect(rx + rw, ry, 1, rh + 1, 50);
-
-*/
 	// Now, to cover up the gaps!
-
-	//DrawRect(0, 29, 640, 437, 230);
 
 	// +-------1----+-----+
 	// |            |     |
 	// 3            4     5
-	// |            +--6--+
+	// |            |     |
 	// |            |     |
 	// |            |     |
 	// +-------2----+-----+
@@ -356,8 +294,7 @@ void DisplayAutomap()
 	DrawRect(0, 29, 400, 3, 230-32); 	// 1
 	DrawRect(0, 227-5, 400, 4, 230-32); 	// 2
 	DrawRect(0, 29, 4, 227-32, 230-32); 	// 3
-	DrawRect(80 + 434/2, 29, 3, 227-32, 230-32); 	// 4
-	DrawRect(80 + 317, 29, 3, 227-32, 230-32); 	// 5
-	//DrawRect(437/2, 127-1-2, x_something, 3, 230-32); 	// 6
+	DrawRect(280, 29, 3, 195, 230-32); 	// 4
+	DrawRect(397, 29, 3, 195, 230-32); 	// 5
 
 }
