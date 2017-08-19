@@ -164,8 +164,8 @@ void DisplayAutomap()
 
 	if (c_scroll_x < 0) c_scroll_x = 0;
 	if (c_scroll_y < 0) c_scroll_y = 0;
-	if (c_scroll_x >= 512*30) c_scroll_x = 512*30 - 32;
-	if (c_scroll_y >= 512*31) c_scroll_y = 512*31 - 32;
+	if (c_scroll_x >= 512*31) c_scroll_x = 512*31 - 32;
+	if (c_scroll_y >= 512*32) c_scroll_y = 512*32 - 32;
 
 	nearest_checkpoint = GetNearestCheckpoint(c_scroll_x, c_scroll_y);
 
@@ -186,8 +186,8 @@ void DisplayAutomap()
 	for (y = 0; y < 54; y++) {
 		for (x = 0; x < 60; x++) {
 			xcol = 0;
-			df_x = x * 8 + -200;
-			df_y = y * 8 + -160;
+			df_x = x * 8 + -140;
+			df_y = y * 8 + -90;
 
 			rx = c_scroll_x / 32 - 27 + x;
 			ry = c_scroll_y / 32 - 27 + y;
@@ -273,8 +273,8 @@ void DisplayAutomap()
 	position.w = 114;
 	position.h = 236;
 
-	from.x = (minimap_scroll_x + 4);
-	from.y = (minimap_scroll_y + 4);
+	from.x = (minimap_scroll_x );
+	from.y = (minimap_scroll_y );
 	from.w = 114;
 	from.h = 236;
 

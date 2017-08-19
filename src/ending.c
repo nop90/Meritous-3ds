@@ -261,13 +261,13 @@ void DrawSText(int t)
 			if (c < 0) c = 0;
 			if (c > 255) c = 255;
 
-			draw_text(68, 150+i*12, SText[i], 255-c);
+			draw_text(16, 18+i*12, SText[i], 255-c);
 		}
 	} else {
 		for (i = 0; i < 17; i++) {
 			c = 5 + (t-300) * 5;
 
-			draw_text(68, 150+i*12, SText[i], 255-c);
+			draw_text(16, 18+i*12, SText[i], 255-c);
 		}
 	}
 
@@ -294,13 +294,13 @@ void DrawSTextV(int t)
 			if (c < 0) c = 0;
 			if (c > 255) c = 255;
 
-			draw_text(68, 150+i*12, STextV[i], 255-c);
+			draw_text(16, 18+i*12, STextV[i], 255-c);
 		}
 	} else {
 		for (i = 0; i < 17; i++) {
 			c = 5 + (t-300) * 5;
 
-			draw_text(68, 150+i*12, STextV[i], 255-c);
+			draw_text(16, 18+i*12, STextV[i], 255-c);
 		}
 	}
 
@@ -330,29 +330,29 @@ void InitParticleStorm()
 //	" You say that this PSI is still PSI, but it is\n"
 
 char *credits[] = {
-	"Concept:       Lancer-X/Asceai",
-	"Game design:   Lancer-X/Asceai",
-	"Graphics:      Lancer-X/Asceai",
-	"Programming:   Lancer-X/Asceai",
-	"Sound Effects: Various (public domain) sources",
-	"Music:         Various artists",
-	"Beta testing:  Quasar",
-	"Beta testing:  Terryn",
-	"Beta testing:  Wervyn",
-	"3DS port:      NOP90"
-	 "\"Ambient Light\"      Vogue of Triton"
-	 "\"Battle of Ragnarok\" Frostbite"
-	 "\"Dragon Cave\"        TICAZ"
-	 " cavern.xm             Unknown"
-	 "\"Caverns Boss\"       Alexis Janson"
-	 "\"Forest Boss\"        Alexis Janson"
-	 "\"Catacombs Boss\"     Alexis Janson"
-	 "\"Fear 2\"             Mick Rippon"
-	 "\"The Final Battle\"   Goose/CéDA & iNVASiON"
-	 "\"Ice Frontier\"       Skaven/FC"
-	 "\"KnarkLoader 1.0\"    Rapacious"
-	 "\"RPG-Battle\"         Cyn"
-	 "\"Metallic Forest\"    Joseph Fox"
+	"Concept:                        Lancer-X/Asceai",
+	"Game design:                    Lancer-X/Asceai",
+	"Graphics:                       Lancer-X/Asceai",
+	"Programming:                    Lancer-X/Asceai",
+	"Sound Effects:  Various (public domain) sources",
+	"Music:                          Various artists",
+	"Beta testing:                            Quasar",
+	"Beta testing:                            Terryn",
+	"Beta testing:                            Wervyn",
+	"3DS port:                                 NOP90",
+	"\"Ambient Light\"                 Vogue of Triton",
+	"\"Battle of Ragnarok\"                  Frostbite",
+	"\"Dragon Cave\"                             TICAZ",
+	" cavern.xm                                Unknown"
+	"\"Caverns Boss\"                    Alexis Janson",
+	"\"Forest Boss\"                     Alexis Janson",
+	"\"Catacombs Boss\"                  Alexis Janson",
+	"\"Fear 2\"                            Mick Rippon",
+	"\"The Final Battle\"        Goose/CéDA & iNVASiON",
+	"\"Ice Frontier\"                        Skaven/FC",
+	"\"KnarkLoader 1.0\"                     Rapacious",
+	"\"RPG-Battle\"                                Cyn",
+	"\"Metallic Forest\"                    Joseph Fox"
 };
 
 void DrawCredits()
@@ -390,7 +390,7 @@ void DrawCredits()
 
 			if ((ypos >= 0)&&(ypos < 480)) {
 				c = 255 - abs(ypos - 240);
-				draw_text(120, ypos, credits[i], c);
+				draw_text(8, ypos, credits[i], c);
 			}
 		}
 
@@ -603,9 +603,9 @@ void DrawPText(int t)
 			if (c > 255) c = 255;
 
 			if (player_shield != 30) {
-				draw_text(68, 180+i*12, PText[i], c);
+				draw_text(8, 30+i*12, PText[i], c);
 			} else {
-				draw_text(68, 180+i*12, PTextV[i], c);
+				draw_text(8, 30+i*12, PTextV[i], c);
 			}
 		}
 	} else {
@@ -613,9 +613,9 @@ void DrawPText(int t)
 			c = 5 + (t-300) * 5;
 
 			if (player_shield != 30) {
-				draw_text(68, 180+i*12, PText[i], c);
+				draw_text(8, 30+i*12, PText[i], c);
 			} else {
-				draw_text(68, 180+i*12, PTextV[i], c);
+				draw_text(8, 30+i*12, PTextV[i], c);
 			}
 		}
 	}

@@ -354,7 +354,7 @@ struct dlg_box dtext[5][12] =
 		" everyone. For humanity."
 	},
 
-	{0, 3, 1,
+	{0, 4, 1,
 		"WERVYN ANIXIL:\n"
 		" \n"
 		" I'll meet you at the point of diminishing\n"

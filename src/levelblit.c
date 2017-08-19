@@ -796,6 +796,7 @@ int DungeonPlay(char *fname)
 	}
 
 	game_running = 1;
+	
 	while (game_running) {
 
 		if (!game_paused) {
